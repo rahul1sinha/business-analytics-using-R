@@ -1,0 +1,513 @@
+---
+title: "Hypothesis-Testing Confidence Interval part 2"
+author: "Rahul Sinha"
+date: 2018-11-13
+output:
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Hypothesis-Testing
+
+Null Hypothesis (Ho): Average daily demand for propane tanks is greater than 162
+i.e. Daily Demand is greater than or equal to 163
+DailyDemand >= 163
+
+Alternate Hypothesis (Ho): Daily Demand is less than 163
+DailyDemand < 163
+
+μ0 is 163
+```{r}
+mu_0 = 163
+```
+
+The population parameter of interest in this case is the mean daily demand for propane tanks at this store.
+
+A sample of 32 days is taken and the sample statistic of mean number of tanks sold per day can be used to estimate the population parameter.
+
+Yes, the parametric tests are applicable as the sample size is 32 which is greater than 30. The sampling ditribution of means can thus be approximated by a normal distribution.
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.90
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n x_bar <", (z_cv * se) + mu_0,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n x_bar <", (t_cv * se) + mu_0,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.95
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n x_bar <", (z_cv * se) + mu_0,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+#t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n x_bar <", (t_cv * se) + mu_0,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.99
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+#z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n x_bar <", (z_cv * se) + mu_0,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+#t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n x_bar <", (t_cv * se) + mu_0,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.90
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+#t
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+#z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n T <", z_cv,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+#t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n T <", t_cv,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.95
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+#t
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+#z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n T <", z_cv,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+#t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n T <", t_cv,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+confidence_level = 0.99
+
+# test statistic
+t = (x_bar - mu_0)/(se)
+#t
+
+# z = -1.37204 indicates that the sample mean of 150.8 is 1.37 standard errors below the hypothesized mean of 163.
+
+# z-test critical value for lower one-tailed test
+z_cv = qnorm((1-confidence_level))
+#z_cv
+
+# we would reject the null hypothesis if 
+cat("As per z-test, reject null hypothesis at ", confidence_level*100, "% confidence level if: \n T <", z_cv,"\n")
+
+# t test critical value for lower one-tailed test
+t_cv = qt((1-confidence_level),df=n-1)
+#t_cv
+
+# as per t-test, reject null hypothesis if:
+cat("As per t-test, reject null hypothesis at ", confidence_level*100, "% confidence level if:\n T <", t_cv,"\n")
+```
+
+```{r}
+mu_0 = 163
+x_bar = 150.8
+sd_sample = 50.3
+n = 32
+se = sd_sample/sqrt(n)
+
+# Test Statistic T
+T = (x_bar - mu_0)/(se)
+
+# p value for t distribution
+pt(T, df=n-1)
+
+# p value for normal distribution
+pnorm(T)
+```
+
+```{r}
+# We would reject the null hypothesis if p < significance level
+# significance level = 1 - confidence level
+# for t distribution, reject for any confidence level less than
+(1 - pt(T, df=n-1)) * 100
+
+# for normal distribution, reject for any confidence level less than
+(1 - pnorm(T)) * 100
+```
+
+Compare the solution you arrived at for the previous part with the rejection region defined in the early subsections. Explain, in detail, how you can use either the p-value or the definition of rejection regions to conduct this hypothesis test at a given confidence level.
+```{r}
+# From the previous part, we see that we will reject the null hypothesis at a confidence level < 91.01% for t distribution and at confidence level < 91.49% for t distribution. This corroborates with the what we found in the earlier parts: we found that we were able to reject the null hypothesis only at a confidence level of 90% in Problem 1g and not at confidence levels: 95%, 99%.
+
+# to use p-value to conduct this hypothesis test at a given confidence level, we will first calculate the Test Statistic T using mean, we then calculate the p-value (by calculating the probability of observing as or more extreme test statistic value than that obtained from the sample data when the null hypothesis is true.), we then calculate the significance level based on the type of hypothesis test(one or two tailed), and the confidence level. If the p-value is less than the significance level, we reject the Null Hypothesis.
+
+# using the definition of rejection regions: we first calculate the critical value for a given distribution at the given confidence level. We then use this critical value to calculate the confidence interval around the hypothesised mean. If the observed sample mean falls outside the confidence interval, we reject the Null Hypothesis else we fail to reject it.
+# (cv * standard error) + hypothesised mean
+```
+
+
+
+# Hypothesis Testing-wBoot - Baseball data
+
+Null Hypothesis: average length of games is greater than or equal to 213 minutes.
+
+Alternative Hypothesis: average length of games is less than 213 minutes.
+
+We can't use a parametric test as the sample size is 15 which is less than 30. Additionally, we don't know if the underlying population has a normal distribution. We perform the Shapiro test and find that the data isn't normally distributed. p-value is extremely low for the shapiro test. Therefore, we can't use the parametric test.
+```{r}
+Baseball <- read.csv("Data/Baseball Games.csv")
+shapiro.test(Baseball$Time)
+```
+
+d. What is the p-value for the statistical test? Show all steps.
+to calculate the p value, we first calculate the Test Statistic T
+```{r}
+mu0 = 213
+n = length(Baseball$Time)
+n
+se = sd(Baseball$Time)/sqrt(n)
+t = (mean(Baseball$Time) - mu0)/se
+
+pvalue_t = pt(t, df = n-1)
+pvalue_t
+confidence_level = 0.99
+
+pvalue_t < (1 - confidence_level)
+# We can't reject the hypothesis at 99% confidence level as the pvalue is greater than the significance level.
+t.test(Baseball$Time, alt = "l", mu = mu0, conf.level = 0.99)
+```
+
+```{r}
+# We can't reject the hypothesis at 99% confidence level as demonstrated by the t-test below. p-value is less than the signific
+t.test(Baseball$Time, alt = "l", mu = mu0, conf.level = 0.99)
+confidence_level = 0.99
+significance_level = 1 - confidence_level
+t.test(Baseball$Time, alt = "l", mu = mu0, conf.level = 0.99)$p.value < significance_level
+```
+
+
+```{r}
+library("wBoot")
+```
+```{r}
+boot.one.per(Baseball$Time, mean, null.hyp = 213, alternative = "less", conf.level = 0.99)
+boot.one.per(Baseball$Time, mean, null.hyp = 213, alternative = "less", conf.level = 0.99)$p.value < significance_level
+
+# Thus both the t-test and the wboot fail to reject the hypothesis. However, we find that the p-value for the wBoot was lower than that found using t-test.
+```
+
+```{r}
+# Null Hypothesis: less than 80% of games conclude within 4 hours
+# Alternate Hypothesis: more than 80% of games conclude within 4 hours
+# 90 % confidence level
+confidence_level = 0.90
+significance_level = 1 - confidence_level
+#length(Baseball$Time < 240)
+boot.one.per(Baseball$Time<240, mean, null.hyp = 0.80, alternative = "greater", conf.level = 0.90)
+boot.one.per(Baseball$Time<240, mean, null.hyp = 0.80, alternative = "greater", conf.level = 0.90)$p.value < significance_level
+
+# 98 % confidence level
+confidence_level = 0.98
+significance_level = 1 - confidence_level
+#length(Baseball$Time < 240)
+boot.one.per(Baseball$Time<240, mean, null.hyp = 0.80, alternative = "greater", conf.level = 0.98)
+boot.one.per(Baseball$Time<240, mean, null.hyp = 0.80, alternative = "greater", conf.level = 0.98)$p.value < significance_level
+
+# Therefore we reject the hypothesis at 90% confidence level, but fail to reject it at 98% confidence level.
+```
+
+
+## Confidence Interval of different metrics
+# Retail data
+
+# 95% CI for mean value of homes
+```{r}
+real_estate <- data.frame(read.csv("Data/Real_estate.csv"))
+```
+```{r}
+shapiro.test(real_estate$prices)
+# the data isn't normally distributed
+```
+```{r}
+l=length(real_estate$prices)
+means <- replicate(1000,mean(sample(real_estate$prices,l,replace=TRUE)))
+diff <- means - mean(real_estate$prices)
+# 95% confidence interval
+diff_2.5 = quantile(diff,prob=0.025)
+diff_97.5 = quantile(diff,prob=0.975)
+(mean(real_estate$prices) + diff_2.5)*1000
+(mean(real_estate$prices) + diff_97.5)*1000
+# value of homes
+```
+
+
+# 92% CI for mean value of homes
+```{r}
+l=length(real_estate$prices)
+means <- replicate(1000,mean(sample(real_estate$prices,l,replace=TRUE)))
+diff <- means - mean(real_estate$prices)
+# 92% confidence interval
+diff_4 = quantile(diff,prob=0.04)
+diff_96 = quantile(diff,prob=0.96)
+(mean(real_estate$prices) + diff_4)*1000
+(mean(real_estate$prices) + diff_96)*1000
+```
+
+# Suppose we are planning to conduct a survey of homes in this area, and seek to find a confidence interval with width 100,000 for the mean value of homes at 95% confidence. How many houses should we survey? (use the sample standard deviation to estimate the population standard deviation)
+```{r}
+# n = ?
+meanPrices = mean(real_estate$prices)
+# se = sd(real_estate$prices)/sqrt(n)
+confidence_level = 0.95
+width = 100000
+# the sample size is 50, and the prices are normally distributed.
+critical_value = qnorm(1-(1-confidence_level)/2)
+# 2 * critical_value * Standard Error = 100,000
+# Standard Error = population standard deviation/sqrt(n)
+# standard deviation of the given prices table gives a good estimation of the population standard deviation.
+# Standard Error = sd(real_estate$prices)/sqrt(n)
+
+# given: confidence interval width = 100000
+# (critical_value * se) * 2 = 100,000
+# (critical_value * sd(real_estate$prices) * 1000/sqrt(n)) * 2 = 100,000
+# sqrt(n) = (critical_value * sd(real_estate$prices) * 1000 * 2 / 100000)
+# n = (critical_value * sd(real_estate$prices) * 1000 * 2 / 100000)^2
+n = (critical_value * sd(real_estate$prices) * 1000 * 2 / width)^2
+cat("calculated sample size =", n, "\n")
+cat("rounded sample size =", ceiling(n))
+```
+
+# Confidence Interval for median price of homes
+
+```{r}
+median(real_estate$prices)
+```
+
+```{r}
+sample_medians <- replicate(
+  1000,
+  median(
+    sample(
+      real_estate$prices,
+      50,
+      replace=TRUE
+    )
+  )
+)
+```
+
+
+```{r}
+diff <- median(real_estate$prices) - sample_medians
+mean(diff)
+```
+
+
+```{r}
+confidence_level = 0.95
+quantile(diff,1-(1-confidence_level)/2)
+quantile(diff,(1-confidence_level)/2)
+```
+
+
+```{r}
+UB <- median(real_estate$prices) + quantile(diff,1-(1-confidence_level)/2)
+LB <- median(real_estate$prices) + quantile(diff,(1-confidence_level)/2)
+UB
+LB
+```
+
+# Confidence Interval for 80th percentile of price of homes
+
+```{r}
+quantile(real_estate$prices, probs = 0.80)
+```
+
+```{r}
+sample_values <- replicate(
+  1000,
+  quantile(
+    sample(
+      real_estate$prices,
+      50,
+      replace=TRUE
+    ), 0.80
+  )
+)
+```
+
+
+```{r}
+diff <- quantile(real_estate$prices, 0.80) - sample_values
+mean(diff)
+```
+
+
+```{r}
+confidence_level = 0.95
+quantile(diff,1-(1-confidence_level)/2)
+quantile(diff,(1-confidence_level)/2)
+```
+
+
+```{r}
+UB <- quantile(real_estate$prices, 0.80) + quantile(diff,1-(1-confidence_level)/2)
+LB <- quantile(real_estate$prices, 0.80) + quantile(diff,(1-confidence_level)/2)
+UB
+LB
+```
+
+# Confidence Interval for kurtosis
+```{r}
+centralMoments <- vector(mode="integer",length=2)
+mean_price<- mean(real_estate$prices)
+n_obs<-length(real_estate$prices)
+
+centralMoments[1] <- (sum((real_estate$prices - mean_price)^2))/n_obs
+centralMoments[2] <- (sum((real_estate$prices - mean_price)^4))/n_obs
+
+calculatedKurtosis <- centralMoments[2] / (centralMoments[1])^2
+calculatedKurtosis
+
+library(moments)
+
+sample_values <- replicate(
+  1000,
+  kurtosis(
+    sample(
+      real_estate$prices,
+      50,
+      replace=TRUE
+    )
+  )
+)
+
+diff <- calculatedKurtosis - sample_values
+mean(diff)
+
+confidence_level = 0.95
+quantile(diff,1-(1-confidence_level)/2)
+quantile(diff,(1-confidence_level)/2)
+
+UB <- calculatedKurtosis + quantile(diff,1-(1-confidence_level)/2)
+LB <- calculatedKurtosis + quantile(diff,(1-confidence_level)/2)
+UB
+LB
+```
+
+## Zillow got word of the upcoming study, and wants to purchase a confidential report that provides a 95% confidence interval for the mean value of houses in the area. Zillow will pay $100,000 for the report, but, of course, wants a narrow margin of error, and so will deduct $10 from the purchase price of the report per dollar in the margin of error of the confidence interval. In the upcoming sample, it costs $600 to assess the value of each house that is chosen in the random sample that will be the basis of the confidence interval. If the firm conducting the study wants to maximize profit, how many houses should they sample?
+
+```{r}
+confidence_level = 0.95
+# margin of error => merr = cv * SE
+n = length(real_estate$prices)
+sd_houseprices = sd(real_estate$prices)
+se_houseprices = sd_houseprices/sqrt(n)
+# say we take a sample size N
+# Profit = 100,000 - ($0.4 * merr) - ($600 * N)
+# We want to maximize Profit
+a <- numeric(91)
+for (i in 10:100) {
+  means <- replicate(1000,mean(sample(real_estate$prices,i,replace=TRUE)))
+diff <- means - mean(real_estate$prices)
+# 95% confidence interval
+diff_97.5 = quantile(diff,prob=0.975)
+a[i] <- (100000 - (0.4 * diff_97.5) - (600 * i))
+}
+
+a
+# maximum profit when we sample 10 houses
+```
+

@@ -1,0 +1,234 @@
+---
+title: "CentralLimit-Chebyshev"
+author: "Rahul Sinha"
+date: 2018-10-17
+output:
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Correlation coefficient
+
+Let A be the random variable for return from A.
+Let B be the random variable for return from B.
+
+Expected return of A = 0.10
+Expected return of B = 0.15
+sd of investment A = 0.25
+sd of investment B = 0.32
+
+By definition, the correlation coefficient falls between -1 and 1.
+Thus, the minimum value of correlation coefficient is -1.
+
+
+The covariance value can vary upto infinity as the covariance isn't standardized.
+
+
+```{r}
+E_Return_A <- 0.10
+E_Return_B <- 0.15
+
+sd_A <- 0.25
+sd_B <- 0.32
+```
+
+Expected Return of Portfolio = a.E[A] + b.E[B] = 0.12 = 12%
+where a = % invested in A = 60
+      b = % invested in B = 40
+```{r}
+correlation_coeff_A_B <- 0.6
+inv_A <- 0.6
+inv_B <- 0.4
+E_Return_Portfolio <- (inv_A*E_Return_A + inv_B*E_Return_B)
+E_Return_Portfolio
+```
+
+
+
+Variance of the portfolio = Var[aA + bB] = a^2.Var(A) + b^2.Var(B) + 2ab.Cov(A,B)
+```{r}
+
+
+Var_A <- sd_A^2
+Var_B <- sd_B^2
+Cov_A_B <- correlation_coeff_A_B*sd_A*sd_B
+Var_portfolio <- ((inv_A^2 * Var_A) + (inv_B^2 * Var_B) + (2 * inv_A * inv_B * Cov_A_B))
+Var_portfolio
+```
+
+
+# Central limit theorem
+
+X is a uniformly distributed Random Variable with mean = 35 and sd = 2
+we know for uniform distribution: mean = (a+b)/2
+and sd = b-a/√12
+where X varies between a and b.
+Solving for a and b, we get a = 31.535
+                            b = 38.465
+                            
+```{r}
+# X is a uniformly distributed Random Variable with mean = 35 and sd = 2
+# we know for uniform distribution: mean = (a+b)/2
+# and sd = b-a/√12
+# where X varies between a and b.
+# Solving for a and b, we get a = 31.535
+#                             b = 38.465
+sim_10000_Random_Samples_X <- replicate(10000, runif(4, min = 31.535, max = 38.465))
+
+# mean of sample means
+mean(colMeans(sim_10000_Random_Samples_X))
+
+# standard deviation of the sample means
+sd(colMeans(sim_10000_Random_Samples_X))
+```
+
+
+
+```{r}
+theoretic_mean_B <- 35
+
+sim_10000_Random_Samples_X40 <- replicate(10000, runif(40, min = 31.535, max = 38.465))
+
+# mean of sample means
+simulated_mean_B <- mean(colMeans(sim_10000_Random_Samples_X40))
+simulated_mean_B
+
+# standard deviation of the sample means
+simulated_sd_B <- sd(colMeans(sim_10000_Random_Samples_X40))
+simulated_sd_B
+
+# theoretical sd of the sampling distribution
+theoretic_sd_B <- 2/sqrt(40)
+```
+
+
+```{r}
+# 10,000 Random Samples of Y sample size 4 - normally distributed with mean 35 and sd 2.
+sim_10000_Random_Samples_Y <- replicate(10000, rnorm(4, mean = 35, sd = 2))
+
+# Average of Sample means
+mean(colMeans(sim_10000_Random_Samples_Y))
+
+# standard deviation of the sample means
+sd(colMeans(sim_10000_Random_Samples_Y))
+```
+
+
+```{r}
+theoretic_mean_D <- 35
+
+# 10,000 Random Samples of Y sample size 40 - normally distributed with mean 35 and sd 2.
+sim_10000_Random_Samples_Y40 <- replicate(10000, rnorm(40, mean = 35, sd = 2))
+
+# Average of Sample means
+simulated_mean_D <- mean(colMeans(sim_10000_Random_Samples_Y40))
+
+# standard deviation of the sample means
+simulated_sd_D <- sd(colMeans(sim_10000_Random_Samples_Y40))
+
+# theoretical sd of the sampling distribution
+theoretic_sd_D <- 2/sqrt(40)
+```
+
+
+As per the Central limit theorem, as the sample size increases, the sampling distribtuion is well approximated by a normal distribution. We can thus apply the theorem to parts b and d where the sample size is 40.
+```{r}
+# Difference in Theoretic and simulated mean for part b
+simulated_mean_B - theoretic_mean_B
+
+# Difference in Theoretic and simulated sd for part b
+simulated_sd_B - theoretic_sd_B
+
+# histogram for B
+hist(colMeans(sim_10000_Random_Samples_X40))
+
+# Difference in Theoretic and simulated mean for part d
+simulated_mean_D - theoretic_mean_D
+
+# Difference in Theoretic and simulated sd for part d
+simulated_sd_D - theoretic_sd_D
+
+# histogram for B
+hist(colMeans(sim_10000_Random_Samples_Y40))
+
+# We see that the simulated mean and standard deviation are very close to the theoretical mean and standard deviation. Thus we see that Central limit theorem correctly predicts that for the parts b and d the sampling distribution can be approximated well by the normal distribution with mean as the population mean and sd as (population sd)/√n
+```
+
+# Chebyshev's Rule
+
+Random Variable X, uniformly distributed. Mean = 10, minimum = 8, Max= 12
+Find: % of distribution within 2 standard deviations from the mean.
+```{r}
+# As per Chebyshev's Rule
+k <- 2
+percent_data_within_2sd <- (1 - (1/k^2))
+
+# percent data within 2 std deviations
+percent_data_within_2sd*100
+
+# sd for uniform distribution
+sd_unif <- (12-8)/sqrt(12)
+```
+
+Random Variable Y, uniformly distributed. Mean = 10, sd = 3.
+Find: % of distribution within 2 standard deviations from the mean.
+```{r}
+# As per Chebyshev's Rule
+k <- 2
+percent_data_within_2sd <- (1 - (1/k^2))
+
+# percent data within 2 std deviations
+percent_data_within_2sd*100
+
+# P(4 ≤ Y ≤ 16)
+calculated_norm_2sd <- pnorm(16, mean = 10, sd = 3) - pnorm(4, mean = 10, sd = 3)
+```
+
+Random Variable Z, 
+Value   Probability
+-2      1/98
+ 2      1/98
+ 0      96/98
+ 
+Find: % of distribution within 2 standard deviations from the mean.
+```{r}
+# As per Chebyshev's Rule
+k <- 2
+percent_data_within_2sd <- (1 - (1/k^2))
+
+# percent data within 2 std deviations
+percent_data_within_2sd*100
+
+# Calculating by hand
+expValue_discrete <- ( ((-2)*(1/98)) + ((2)*(1/98)) + ((0)*(96/98)) )
+calculated_discrete_var <- ( ((-2 - expValue_discrete)^2)*(1/98) + (((2-expValue_discrete)^2)*(1/98)) + (((0-expValue_discrete)^2)*(96/98)) )
+calculated_discrete_sd <- sqrt(calculated_discrete_var)
+calculated_discrete_sd
+
+# 2 std deviations
+expValue_discrete+(2*calculated_discrete_sd)
+expValue_discrete-(2*calculated_discrete_sd)
+```
+
+
+```{r}
+# Part a 
+# sd for uniform distribution
+10 + (2 * sd_unif)
+10 - (2 * sd_unif)
+# In the case of qn a) we see that 100% of the distribution lies within the 2 standard deviations(7.69 - 12.31) as the variable is distributed between the values 8 and 12.
+# Chebyshev's Rule states that atleast 75 % of the data would lie between the 2 standard deviations. Hence, the rule correctly predicts the range.
+
+# Part b
+# As per the rule, again 75 % of the data would lie between the 2 standard deviations.
+# Using pnorm we found that for the normal distribution in b) theres a 95.44% chance that the value of Y would lie between 2 std. deviations i.e. between 4 and 16.
+# Hence again it is true that atleast 75 % of the data would lie between the 2 standard deviations.
+
+# Part c
+# As per the rule, again 75 % of the data would lie between the 2 standard deviations.
+# We calculated the standard deviation in part c and saw that the range for 2 sd from mean is between -0.57 and 0.57.
+
+```
+

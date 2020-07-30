@@ -1,0 +1,298 @@
+---
+title: "ConfidenceIntervals-HypothesisTesting"
+author: "Rahul Sinha"
+date: 2018-10-24
+output:
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Confidence Intervals
+a. A sample of size n = 100 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 4, compute a 95% confidence interval for the population mean μ.
+```{r}
+n = 100
+meanXbar = 59
+se = 4/sqrt(n)
+confidence_level = 0.95
+# the sample size is 100, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 95% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c()
+vec_sample_size <- c(vec_sample_size, n)
+vec_width <- c()
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+b. A sample of size n = 100 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 4, compute a 90% confidence interval for the population mean μ.
+```{r}
+n = 100
+meanXbar = 59
+se = 4/sqrt(n)
+confidence_level = 0.90
+# the sample size is 100, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 90% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+c. A sample of size n = 100 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 4, compute a 99% confidence interval for the population mean μ.
+
+```{r}
+n = 100
+meanXbar = 59
+se = 4/sqrt(n)
+confidence_level = 0.99
+# the sample size is 100, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 99% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+d. A sample of size n = 25 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 4, compute a 95% confidence interval for the population mean μ.
+```{r}
+n = 25
+meanXbar = 59
+se = 4/sqrt(n)
+confidence_level = 0.95
+# the sample size is 25, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 95% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+e. A sample of size n = 400 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 4, compute a 95% confidence interval for the population mean μ.
+```{r}
+n = 400
+meanXbar = 59
+se = 4/sqrt(n)
+confidence_level = 0.95
+# the sample size is 400, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 95% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+f. A sample of size n = 100 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 1, compute a 95% confidence interval for the population mean μ.
+```{r}
+n = 100
+meanXbar = 59
+se = 1/sqrt(n)
+confidence_level = 0.95
+# the sample size is 100, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 95% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+g. A sample of size n = 100 produced the sample mean of X̄ = 59. Assuming the population standard deviation σ = 16, compute a 95% confidence interval for the population mean μ.
+```{r}
+n = 100
+meanXbar = 59
+se = 16/sqrt(n)
+confidence_level = 0.95
+# the sample size is 100, hence we safely assume a normal sampling distribution of the mean.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = meanXbar + (critical_value * se)
+lower_bound = meanXbar - (critical_value * se)
+
+# 95% confidence interval
+lower_bound
+upper_bound
+
+vec_sample_size <- c(vec_sample_size, n)
+width = upper_bound - lower_bound
+vec_width <- c(vec_width, width)
+```
+
+
+We see that the width of the confidence interval in part a is ~ 1.56. For part b the confidence level decreases to 90% this results in shorter width, ~ 1.32, as to be less confident of capturing the population mean in our interval we can decrease our confidence interval.
+Similarly for part c to be sure of capturing the population mean 99% of the times in our samples, we must increase our confidence interval. Thus the width for part c increases to 2.06. 
+For part d, the width increases futher to 3.14; this is due to the reduction in sample size which results in an increased standard error; hence the bigger margin or width of confidence interval.
+For part e, compared to a, the sample size quadruples which results in a smaller standard error and hence its confidence interval width decreases to 0.78 compared to 1.57 of part a.
+For part f, the standard deviation of the population reduces to 1 which reduces the standard error, hence reducing the width of confidence interval to 0.39.
+Part g, the population standard deviation increases to 16 resulting in an increased standard error, hence increasing the width of confidence interval to 6.27.
+
+```{r}
+plot(vec_sample_size, vec_width, pch=21, bg = "red")
+abline(h=vec_width[1], lty=2, col = "green")
+text(vec_sample_size[1],vec_width[1], "a:sd4  95%")
+text(vec_sample_size[2],vec_width[2], "b:sd4  90%")
+text(vec_sample_size[3],vec_width[3], "c:sd4  99%")
+text(vec_sample_size[4],vec_width[4], "d:sd4  95%")
+text(vec_sample_size[5],vec_width[5], "e:sd4  95%")
+text(vec_sample_size[6],vec_width[6], "f:sd1  95%")
+text(vec_sample_size[7],vec_width[7], "g:sd16 95%")
+vec_sample_size
+vec_width
+```
+
+
+# Confidence Intervals
+```{r}
+real_estate <- data.frame(read.csv("Data/Real_estate.csv"))
+```
+
+```{r}
+n = 50
+meanPrices = mean(real_estate$prices)
+se = sd(real_estate$prices)/sqrt(n)
+confidence_level = 0.95
+# the sample size is 50, and the prices are normally distributed.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = (meanPrices + (critical_value * se)) * 1000
+lower_bound = (meanPrices - (critical_value * se)) * 1000
+
+# 95% confidence interval for the mean value of homes
+lower_bound
+upper_bound
+```
+
+```{r}
+n = 50
+meanPrices = mean(real_estate$prices)
+se = sd(real_estate$prices)/sqrt(n)
+confidence_level = 0.92
+# the sample size is 50, and the prices are normally distributed.
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = (meanPrices + (critical_value * se)) * 1000
+lower_bound = (meanPrices - (critical_value * se)) * 1000
+
+# 92% confidence interval for the mean value of homes
+lower_bound
+upper_bound
+```
+
+```{r}
+# n = ?
+meanPrices = mean(real_estate$prices)
+# se = sd(real_estate$prices)/sqrt(n)
+confidence_level = 0.95
+width = 100000
+# the sample size is 50, and the prices are normally distributed.
+critical_value = qnorm(1-(1-confidence_level)/2)
+# 2 * critical_value * Standard Error = 100,000
+# Standard Error = population standard deviation/sqrt(n)
+# standard deviation of the given prices table gives a good estimation of the population standard deviation.
+# Standard Error = sd(real_estate$prices)/sqrt(n)
+
+# given: confidence interval width = 100000
+# (critical_value * se) * 2 = 100,000
+# (critical_value * sd(real_estate$prices) * 1000/sqrt(n)) * 2 = 100,000
+# sqrt(n) = (critical_value * sd(real_estate$prices) * 1000 * 2 / 100000)
+# n = (critical_value * sd(real_estate$prices) * 1000 * 2 / 100000)^2
+n = (critical_value * sd(real_estate$prices) * 1000 * 2 / width)^2
+cat("calculated sample size =", n, "\n")
+cat("rounded sample size =", ceiling(n))
+```
+
+# Hypothesis Testing
+
+```{r}
+library(ISwR)
+attach(graft.vs.host)
+```
+
+```{r}
+# patients_gvhd 
+X = 17
+n = 37
+
+# checking if nπ >= 5 and n(1-π) >= 5
+n * X/n >= 5
+n * (1 - (X/n)) >= 5
+# Thus z-distribution valid for this problem
+
+```
+
+```{r}
+# proportion of patients having gvhd in the sample
+p_hat = X/n
+se = sqrt(p_hat*(1-p_hat)/n)
+confidence_level = 0.98
+# the sample size is 37, using z statistics
+critical_value = qnorm(1-(1-confidence_level)/2)
+upper_bound = p_hat + (critical_value * se)
+lower_bound = p_hat - (critical_value * se)
+
+# 98% confidence interval for the population proportion of the number of people that are given this bone transplant that end up having the graft-versus-host disease
+lower_bound
+upper_bound
+```
+
+```{r}
+# proportion of patients having gvhd in the sample
+# Suppose p_hat = X/n
+# se = sqrt(p_hat*(1-p_hat)/n)
+confidence_level = 0.98
+# the sample size is 37, using z statistics
+critical_value = qnorm(1-(1-confidence_level)/2)
+# We know that Margin of error = critical_value * standard error
+# critical_value * standard error < 0.05
+# critical_value * sqrt(p_hat*(1-p_hat)/n) < 0.05
+# sqrt(p_hat*(1-p_hat)/n) < 0.05/critical_value
+# p_hat*(1-p_hat)/n < (0.05/critical_value)^2
+# n > p_hat*(1-p_hat)/(0.05/critical_value)^2
+# we know that the max value of y*(1-y) = 0.5 * 0.5
+n = 0.5*0.5/(0.05/critical_value)^2
+
+# thus sample size n = 542
+cat("calculated sample size =", n, "\n")
+cat("rounded sample size =", ceiling(n))
+
+```
+

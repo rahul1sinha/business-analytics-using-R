@@ -1,0 +1,46 @@
+---
+title: "Skewness & Kurtosis-moments-Pkg"
+author: "Rahul Sinha"
+date: 2018-09-08
+output: html_document
+---
+
+
+# Problem 4
+## Problem 4a
+```{r}
+extractedAge <- ISwR::stroke$age
+```
+
+## Problem 4b
+```{r}
+centralMoments <- vector(length = 4)
+centralMoments[1] = 1/length(extractedAge) * sum(extractedAge - mean(extractedAge))
+centralMoments[2] = 1/length(extractedAge) * sum((extractedAge - mean(extractedAge))^2)
+centralMoments[3] = 1/length(extractedAge) * sum((extractedAge - mean(extractedAge))^3)
+centralMoments[4] = 1/length(extractedAge) * sum((extractedAge - mean(extractedAge))^4)
+```
+
+## Problem 4c
+```{r}
+nObservations <- length(extractedAge)
+```
+
+## Problem 4d
+```{r}
+calculatedSkewness = centralMoments[3] / (centralMoments[2])^(3/2)
+calculatedKurtosis = centralMoments[4] / (centralMoments[2])^(2)
+```
+
+## Problem 4e
+```{r}
+install.packages("moments")
+```
+
+## Problem 4f
+```{r}
+library("moments")
+functionSkewness <- skewness(extractedAge)
+functionKurtosis <- kurtosis(extractedAge)
+```
+

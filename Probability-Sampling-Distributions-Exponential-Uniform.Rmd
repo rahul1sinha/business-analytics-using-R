@@ -1,0 +1,259 @@
+---
+title: "Probability-Sampling-Distributions"
+author: "Rahul Sinha"
+date: 2018-10-03
+output:
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Poisson Distributions
+
+Let N be the number of customers that arrive in the first 10 minutes that the store is open.
+N follows a Poisson distribution, with lambda = 4
+
+Question 1a asks for: P( N < 6 ) = P(N<=5)
+
+```{r}
+ppois(5,lambda = 4)
+```
+
+Let X be a random number denoting the additional number of scoops after the first scoop that a customer orders.
+
+Given: X is binomial distributed with size(n) = 2, Probability(π) = 0.5
+Let Y be the total number of scoops of ice cream that a randomly chosen customer will purchase.
+We need to calculate the PMF for Y.
+We know that Y takes values: 1, 2, 3
+i.e. X takes values: 0, 1, 2
+Y is always 1 + X
+
+The PMF for X is given by: nCx (0.5)^x (0.5)^(n-x)
+where x = 0, 1, 2
+which comes to:
+    PMF = 1/4 for x = 0,2
+and PMF = 1/2 for x = 1
+
+
+PMF for the number of scoops a customer will purchase:
+X   Y   (PMF for X)   Expected number of scoops(1 + E[X])
+0   1       1/4           1.25
+1   2       1/2           1.50
+2   3       1/4           1.25
+
+
+Let X be the number of customers arriving at ice cream shop in 60 min
+1 customer every 150 seconds --> 1/150 x 3600 = 24
+X is a poisson distributed random variable with lambda = 24
+
+```{r}
+lambda_1hr <- 24
+```
+```{r}
+sim_scoopsSold <- replicate( 10000, sum( rpois(1,lambda_1hr) * 0.25 + rpois(1,lambda_1hr) * 0.5 * 2 + rpois(1,lambda_1hr) * 0.25 *3 ) )
+mean(sim_scoopsSold)
+```
+
+
+# Poisson Distributions
+Let X be the number of cars arriving at the toll plaza in the first 10 minutes.
+
+3 Cars at the toll plaza every 1 minute --> 30 Cars expected in the first 10 minutes.
+
+```{r}
+lambdaCar_10min <- 30
+```
+
+
+1.5 Trucks every 1 minute
+```{r}
+lambdaTruck_1min <- 1.5
+dpois(0,lambdaTruck_1min)
+```
+
+
+expected value of number of vehicles in 20 min
+
+3 Cars at the toll plaza every 1 minute --> 60 Cars expected in the first 20 minutes.
+1.5 Trucks every 1 minute --> 30 Trucks expected in the first 20 minutes.
+```{r}
+lambdaCar_20min <- 60
+lambdaTruck_20min <- 30
+```
+
+Let Z be the number of vehicles in first 20 mins
+
+
+Let X be the number of Cars and Y be the number of Trucks in first 20 mins.
+
+Z = X + Y
+
+```{r}
+sim_number_of_vehicles <- replicate( 10000 , rpois(1,lambdaCar_20min) + rpois(1,lambdaTruck_20min) )
+```
+
+
+expected number of vehicles:
+
+```{r}
+ev_vehicles <- mean(sim_number_of_vehicles)
+```
+
+standard deviation of vehicles:
+
+```{r}
+var_vehicles <- sum(  ( sim_number_of_vehicles - ev_vehicles )^2 ) / (10000-1)
+sd_vehicles  <- sqrt(var_vehicles)
+sd_vehicles
+```
+
+
+
+Toll charges:
+Cars    $3
+Trucks  $6.50
+
+Find: Probability that more than $1000 in toll in next 1 hr.
+
+3 Cars at the toll plaza every 1 minute --> 180 Cars expected in the first 60 minutes.
+1.5 Trucks every 1 minute --> 90 Trucks expected in the first 60 minutes.
+```{r}
+lambdaCar_60min <- 180
+lambdaTruck_60min <- 90
+```
+
+Let Z be the toll from vehicles in first 60 mins
+
+
+Let X be the number of Cars and Y be the number of Trucks in first 60 mins.
+
+Z = (3 x X) + (6.5 x Y)
+
+Sampling for X and Y to get the total toll:
+
+```{r}
+sim_toll_vehicles <- replicate( 10000 , 3 * rpois(1,lambdaCar_60min) + 6.5 * rpois(1,lambdaTruck_60min) )
+```
+
+trying out the first sample:
+```{r}
+3 * rpois(1,lambdaCar_60min) + 6.5 * rpois(1,lambdaTruck_60min) 
+```
+
+```{r}
+indicate_toll <- sim_toll_vehicles > 1000
+```
+
+```{r}
+mean(indicate_toll)
+```
+
+Thus P(Z > 1000) = 0.9573
+
+
+
+# Exponential Distribution
+
+
+Let X be the exponential random variable denoting the lifetime of a light bulb.
+µ = 5 years --> rate = 1/5
+P(X > 7) = 1 - P(X <= 7) = 0.246597
+
+
+```{r}
+rate = 1/5
+1 - pexp(7, rate)
+```
+
+P(X > 4) = 1 - P(X <= 4) = 0.449329
+
+```{r}
+rate = 1/5
+1 - pexp(4, rate)
+```
+
+Find: P(X>10|X>6)
+
+P(X>10|X>6) = P(X>10 and X>6)/P(X>6)
+if X > 10 then X > 6  thus,
+P(X>10|X>6) = P(X>10)/P(X>6) = 0.449329
+```{r}
+(1 - pexp(10,rate))/(1 - pexp(6,rate))
+```
+
+Find: P(X>14|X>10)
+
+P(X>14|X>10) = P(X>14 and X>10)/P(X>10)
+if X > 14 then X > 10  thus,
+P(X>14|X>10) = P(X>14)/P(X>10) = 0.449329
+```{r}
+(1 - pexp(14,rate))/(1 - pexp(10,rate))
+```
+
+Yes, the probabilities for the above 3 questions are same. So, the probability that the bulb lasts for another 4 years given time t has passed is the same as the probability that the bulb lasted for 4 years to start with. This results from the formula and can be shown:
+consider ß to represent lambda.
+we know PDF for exponential distribution is: f(x) = ße^(-ßx)
+
+P(X> 4+t)/P(X>4) = ße^(-ß(4+t)) / ße^(-ßt)
+= e^(-4ß)
+
+Thus, we see that the conditional probability for the exponential function doesn't depend on time t that has passed.
+
+
+# Uniform Distribution
+Let the length of the steel beam in inches be denoted by the uniform random variable X.
+Minimum value of the Continuous Random Variable = 8.7 inches
+Maximum value of the Continuous Random Variable = 9.1 inches
+Thus, P(X = 8.5) = 0 as 8.5 inches is outside the range of values of the Continuous Random Variable.
+Also, P(X = x) = 0 for any particular value of x, if X is a Continuous Random Variable.
+
+```{r}
+dunif(8.5, min = 8.7, max = 9.1)
+```
+
+
+P(X = x) = 0 for any particular value of x, if X is a Continuous Random Variable.
+Therefore, P(X = 8.9) = 0
+
+Let X be the Continuous Random Variable denoting the length of the steel beam in inches.
+P(8.92 <= X <= 9.01) = P(X <= 9.01) - P(X <= 8.92)
+
+```{r}
+punif(9.01,min = 8.7,max = 9.1) - punif(8.92,min = 8.7,max = 9.1)
+```
+
+Let X be the Continuous Random Variable denoting the length of the steel beam in inches.
+P(8.5 <= X <= 9.01) = P(X <= 9.01) - P(X <= 8.5)
+```{r}
+punif(9.01,min = 8.7,max = 9.1) - punif(8.5,min = 8.7,max = 9.1)
+```
+
+Let Y = the sum of lengths of 101 randomly chosen beams
+P(Y<= 900)
+
+Sampling truck loads:
+
+```{r}
+sum( runif(101,min=8.7,max=9.1) )
+```
+
+```{r}
+sim_truckloads <- replicate( 10000, sum( runif(101,min=8.7,max=9.1) ) )
+```
+```{r}
+ind_fit_on_truck <- sim_truckloads < 900
+```
+
+```{r}
+mean(ind_fit_on_truck)
+```
+
+P(Y<= 900) = 0.8229
+
+Thus Cruz Inc. will not be comfortable using Gopal LLC as P(Y<= 900) < 0.90
+i.e. Cruz Inc. wants to be 90% certain that 101 beams can be shipped on a single truck, but the calculated probability suggests they can only be 82.29% certain using Gopal LLC.
+
+
+
+
